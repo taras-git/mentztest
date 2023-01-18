@@ -3,21 +3,22 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:mentztest/data_model.dart';
 
 const url =
     'https://mvvvip1.defas-fgi.de/mvv/XML_STOPFINDER_REQUEST?language=en&outputFormat=RapidJSON&type_sf=any&name_sf=test';
 
-Future<int> fetchUrl() async {
+Future<JsonResponse> fetchUrl() async {
   final response = await http.get(Uri.parse(url));
 
   if (response.statusCode == 200) {
     // If the server did return a 200 OK response,
     // then parse the JSON.
-    return response.statusCode;
+    return JsonResponse.fromJson(jsonDecode(response.body));
   } else {
     // If the server did not return a 200 OK response,
     // then throw an exception.
-    throw Exception('Failed to load album');
+    throw Exception('Failed to load response');
   }
 }
 
@@ -31,12 +32,12 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  late Future<int> futureStatusCode;
+  late Future<JsonResponse> futureJsonResponse;
 
   @override
   void initState() {
     super.initState();
-    futureStatusCode = fetchUrl();
+    futureJsonResponse = fetchUrl();
   }
 
   @override
@@ -51,11 +52,11 @@ class _MyAppState extends State<MyApp> {
           title: const Text('Mentz Test App'),
         ),
         body: Center(
-          child: FutureBuilder<int>(
-            future: futureStatusCode,
+          child: FutureBuilder<JsonResponse>(
+            future: futureJsonResponse,
             builder: (context, snapshot) {
               if (snapshot.hasData) {
-                return Text(snapshot.data!.toString());
+                return Text(snapshot.data!.version);
               } else if (snapshot.hasError) {
                 return Text('${snapshot.error}');
               }
