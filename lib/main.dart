@@ -51,21 +51,48 @@ class _MyAppState extends State<MyApp> {
         appBar: AppBar(
           title: const Text('Mentz Test App'),
         ),
-        body: Center(
-          child: FutureBuilder<JsonResponse>(
-            future: futureJsonResponse,
-            builder: (context, snapshot) {
-              if (snapshot.hasData) {
-                return Text(snapshot.data!.version);
-              } else if (snapshot.hasError) {
-                return Text('${snapshot.error}');
-              }
-              // By default, show a loading spinner.
-              return const CircularProgressIndicator();
-            },
-          ),
+        body: Column(
+          children: [
+            TextField(),
+            OutlinedButton(
+              onPressed: () {},
+              child: Text('Press me'),
+            ),
+            Expanded(
+              child: Center(
+                child: ShowData(
+                  futureJsonResponse: futureJsonResponse,
+                ),
+              ),
+            ),
+          ],
         ),
       ),
+    );
+  }
+}
+
+class ShowData extends StatelessWidget {
+  const ShowData({
+    Key? key,
+    required this.futureJsonResponse,
+  }) : super(key: key);
+
+  final Future<JsonResponse> futureJsonResponse;
+
+  @override
+  Widget build(BuildContext context) {
+    return FutureBuilder<JsonResponse>(
+      future: futureJsonResponse,
+      builder: (context, snapshot) {
+        if (snapshot.hasData) {
+          return Text(snapshot.data!.version);
+        } else if (snapshot.hasError) {
+          return Text('${snapshot.error}');
+        }
+        // By default, show a loading spinner.
+        return const CircularProgressIndicator();
+      },
     );
   }
 }
