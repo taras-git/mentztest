@@ -3,7 +3,7 @@
 // ignore_for_file: type=lint
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
-part of 'response_data.dart';
+part of 'locations_data.dart';
 
 // **************************************************************************
 // FreezedGenerator
@@ -14,27 +14,27 @@ T _$identity<T>(T value) => value;
 final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
-ResponseData _$ResponseDataFromJson(Map<String, dynamic> json) {
-  return _ResponseData.fromJson(json);
+LocationsData _$LocationsDataFromJson(Map<String, dynamic> json) {
+  return _LocationsData.fromJson(json);
 }
 
 /// @nodoc
-mixin _$ResponseData {
+mixin _$LocationsData {
   String? get version => throw _privateConstructorUsedError;
   List<SystemMessage>? get systemMessages => throw _privateConstructorUsedError;
   List<Location>? get locations => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
-  $ResponseDataCopyWith<ResponseData> get copyWith =>
+  $LocationsDataCopyWith<LocationsData> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $ResponseDataCopyWith<$Res> {
-  factory $ResponseDataCopyWith(
-          ResponseData value, $Res Function(ResponseData) then) =
-      _$ResponseDataCopyWithImpl<$Res, ResponseData>;
+abstract class $LocationsDataCopyWith<$Res> {
+  factory $LocationsDataCopyWith(
+          LocationsData value, $Res Function(LocationsData) then) =
+      _$LocationsDataCopyWithImpl<$Res, LocationsData>;
   @useResult
   $Res call(
       {String? version,
@@ -43,9 +43,9 @@ abstract class $ResponseDataCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$ResponseDataCopyWithImpl<$Res, $Val extends ResponseData>
-    implements $ResponseDataCopyWith<$Res> {
-  _$ResponseDataCopyWithImpl(this._value, this._then);
+class _$LocationsDataCopyWithImpl<$Res, $Val extends LocationsData>
+    implements $LocationsDataCopyWith<$Res> {
+  _$LocationsDataCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
   final $Val _value;
@@ -77,11 +77,11 @@ class _$ResponseDataCopyWithImpl<$Res, $Val extends ResponseData>
 }
 
 /// @nodoc
-abstract class _$$_ResponseDataCopyWith<$Res>
-    implements $ResponseDataCopyWith<$Res> {
-  factory _$$_ResponseDataCopyWith(
-          _$_ResponseData value, $Res Function(_$_ResponseData) then) =
-      __$$_ResponseDataCopyWithImpl<$Res>;
+abstract class _$$_LocationsDataCopyWith<$Res>
+    implements $LocationsDataCopyWith<$Res> {
+  factory _$$_LocationsDataCopyWith(
+          _$_LocationsData value, $Res Function(_$_LocationsData) then) =
+      __$$_LocationsDataCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -91,11 +91,11 @@ abstract class _$$_ResponseDataCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$_ResponseDataCopyWithImpl<$Res>
-    extends _$ResponseDataCopyWithImpl<$Res, _$_ResponseData>
-    implements _$$_ResponseDataCopyWith<$Res> {
-  __$$_ResponseDataCopyWithImpl(
-      _$_ResponseData _value, $Res Function(_$_ResponseData) _then)
+class __$$_LocationsDataCopyWithImpl<$Res>
+    extends _$LocationsDataCopyWithImpl<$Res, _$_LocationsData>
+    implements _$$_LocationsDataCopyWith<$Res> {
+  __$$_LocationsDataCopyWithImpl(
+      _$_LocationsData _value, $Res Function(_$_LocationsData) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -105,7 +105,7 @@ class __$$_ResponseDataCopyWithImpl<$Res>
     Object? systemMessages = freezed,
     Object? locations = freezed,
   }) {
-    return _then(_$_ResponseData(
+    return _then(_$_LocationsData(
       version: freezed == version
           ? _value.version
           : version // ignore: cast_nullable_to_non_nullable
@@ -124,16 +124,16 @@ class __$$_ResponseDataCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$_ResponseData implements _ResponseData {
-  const _$_ResponseData(
+class _$_LocationsData implements _LocationsData {
+  const _$_LocationsData(
       {this.version,
       final List<SystemMessage>? systemMessages,
       final List<Location>? locations})
       : _systemMessages = systemMessages,
         _locations = locations;
 
-  factory _$_ResponseData.fromJson(Map<String, dynamic> json) =>
-      _$$_ResponseDataFromJson(json);
+  factory _$_LocationsData.fromJson(Map<String, dynamic> json) =>
+      _$$_LocationsDataFromJson(json);
 
   @override
   final String? version;
@@ -159,14 +159,14 @@ class _$_ResponseData implements _ResponseData {
 
   @override
   String toString() {
-    return 'ResponseData(version: $version, systemMessages: $systemMessages, locations: $locations)';
+    return 'LocationsData(version: $version, systemMessages: $systemMessages, locations: $locations)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_ResponseData &&
+            other is _$_LocationsData &&
             (identical(other.version, version) || other.version == version) &&
             const DeepCollectionEquality()
                 .equals(other._systemMessages, _systemMessages) &&
@@ -185,25 +185,25 @@ class _$_ResponseData implements _ResponseData {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_ResponseDataCopyWith<_$_ResponseData> get copyWith =>
-      __$$_ResponseDataCopyWithImpl<_$_ResponseData>(this, _$identity);
+  _$$_LocationsDataCopyWith<_$_LocationsData> get copyWith =>
+      __$$_LocationsDataCopyWithImpl<_$_LocationsData>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_ResponseDataToJson(
+    return _$$_LocationsDataToJson(
       this,
     );
   }
 }
 
-abstract class _ResponseData implements ResponseData {
-  const factory _ResponseData(
+abstract class _LocationsData implements LocationsData {
+  const factory _LocationsData(
       {final String? version,
       final List<SystemMessage>? systemMessages,
-      final List<Location>? locations}) = _$_ResponseData;
+      final List<Location>? locations}) = _$_LocationsData;
 
-  factory _ResponseData.fromJson(Map<String, dynamic> json) =
-      _$_ResponseData.fromJson;
+  factory _LocationsData.fromJson(Map<String, dynamic> json) =
+      _$_LocationsData.fromJson;
 
   @override
   String? get version;
@@ -213,7 +213,7 @@ abstract class _ResponseData implements ResponseData {
   List<Location>? get locations;
   @override
   @JsonKey(ignore: true)
-  _$$_ResponseDataCopyWith<_$_ResponseData> get copyWith =>
+  _$$_LocationsDataCopyWith<_$_LocationsData> get copyWith =>
       throw _privateConstructorUsedError;
 }
 

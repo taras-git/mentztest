@@ -1,19 +1,18 @@
-
 import 'package:freezed_annotation/freezed_annotation.dart';
 
-part 'response_data.freezed.dart';
-part 'response_data.g.dart';
+part 'locations_data.freezed.dart';
+part 'locations_data.g.dart';
 
 @freezed
-class ResponseData with _$ResponseData {
-  const factory ResponseData({
+class LocationsData with _$LocationsData {
+  const factory LocationsData({
     String? version,
     List<SystemMessage>? systemMessages,
     List<Location>? locations,
-  }) = _ResponseData;
+  }) = _LocationsData;
 
-  factory ResponseData.fromJson(Map<String, dynamic> json) =>
-      _$ResponseDataFromJson(json);
+  factory LocationsData.fromJson(Map<String, dynamic> json) =>
+      _$LocationsDataFromJson(json);
 }
 
 @freezed
