@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:http/http.dart' as http;
 import 'package:mentztest/data_model/response_data.dart';
 
@@ -22,7 +23,11 @@ Future<ResponseData> fetchUrl() async {
   }
 }
 
-void main() => runApp(const MyApp());
+void main() => runApp(
+      const ProviderScope(
+        child: MyApp(),
+      ),
+    );
 
 class MyApp extends StatefulWidget {
   const MyApp({super.key});
@@ -46,6 +51,26 @@ class _MyAppState extends State<MyApp> {
       title: 'Mentz Test App',
       theme: ThemeData(
         primarySwatch: Colors.blue,
+        inputDecorationTheme: InputDecorationTheme(
+          contentPadding: const EdgeInsets.only(right: 10.0, left: 20.0),
+          hintStyle: const TextStyle(color: Colors.grey),
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(10.0),
+          ),
+        ),
+        outlinedButtonTheme: OutlinedButtonThemeData(
+          style: OutlinedButton.styleFrom(
+            foregroundColor: Colors.white,
+            backgroundColor: Colors.green,
+            side: const BorderSide(
+              color: Colors.blue,
+              width: 2,
+            ),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(10.0),
+            ),
+          ),
+        ),
       ),
       home: Scaffold(
         appBar: AppBar(
@@ -53,10 +78,20 @@ class _MyAppState extends State<MyApp> {
         ),
         body: Column(
           children: [
-            TextField(),
+            const SizedBox(
+              height: 10,
+            ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: TextFormField(
+                decoration: const InputDecoration(
+                  hintText: "Enter search term",
+                ),
+              ),
+            ),
             OutlinedButton(
               onPressed: () {},
-              child: Text('Press me'),
+              child: const Text('Press me'),
             ),
             Expanded(
               child: Center(
