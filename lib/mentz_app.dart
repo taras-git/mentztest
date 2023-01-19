@@ -2,16 +2,18 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-import 'package:mentztest/constants.dart';
-import 'package:mentztest/data_model/response_data.dart';
+import 'package:mentztest/data_model/locations_data.dart';
+import 'package:mentztest/utils/constants.dart';
 
-Future<ResponseData> fetchUrl() async {
+Future<LocationsData> fetchUrl() async {
   final response = await http.get(Uri.parse(url));
 
   if (response.statusCode == 200) {
     // If the server did return a 200 OK response,
     // then parse the JSON.
-    return ResponseData.fromJson(jsonDecode(response.body));
+    final result = LocationsData.fromJson(jsonDecode(response.body));
+    // final r = result.locations.map((e) => Location.fromJson(e)).toList();
+    return result;
   } else {
     // If the server did not return a 200 OK response,
     // then throw an exception.
@@ -27,7 +29,7 @@ class MentzApp extends StatefulWidget {
 }
 
 class _MentzAppState extends State<MentzApp> {
-  late Future<ResponseData> jsonResponse;
+  late Future<LocationsData> jsonResponse;
 
   @override
   void initState() {
@@ -103,15 +105,17 @@ class ShowData extends StatelessWidget {
     required this.futureJsonResponse,
   }) : super(key: key);
 
-  final Future<ResponseData> futureJsonResponse;
+  final Future<LocationsData> futureJsonResponse;
 
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder<ResponseData>(
+    return FutureBuilder<LocationsData>(
       future: futureJsonResponse,
       builder: (context, snapshot) {
         if (snapshot.hasData) {
-          return Text(snapshot.data!.version!);
+          return snapshot.data!.locations == null
+              ? const Text('Search match : 0')
+              : Text('Search match: ${snapshot.data!.locations!.length}');
         } else if (snapshot.hasError) {
           return Text('${snapshot.error}');
         }
