@@ -66,7 +66,7 @@ analyzer:
     hash_and_equals: error
 
     import_internal_library: warning
-    invalid_annotation_target: error
+    invalid_annotation_target: ignore
     iterable_contains_unrelated_type: error
 
     list_remove_unrelated_type: error
