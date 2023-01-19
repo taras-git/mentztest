@@ -3,18 +3,18 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-import 'package:mentztest/data_model.dart';
+import 'package:mentztest/data_model/response_data.dart';
 
 const url =
     'https://mvvvip1.defas-fgi.de/mvv/XML_STOPFINDER_REQUEST?language=en&outputFormat=RapidJSON&type_sf=any&name_sf=test';
 
-Future<JsonResponse> fetchUrl() async {
+Future<ResponseData> fetchUrl() async {
   final response = await http.get(Uri.parse(url));
 
   if (response.statusCode == 200) {
     // If the server did return a 200 OK response,
     // then parse the JSON.
-    return JsonResponse.fromJson(jsonDecode(response.body));
+    return ResponseData.fromJson(jsonDecode(response.body));
   } else {
     // If the server did not return a 200 OK response,
     // then throw an exception.
@@ -32,12 +32,12 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  late Future<JsonResponse> futureJsonResponse;
+  late Future<ResponseData> jsonResponse;
 
   @override
   void initState() {
     super.initState();
-    futureJsonResponse = fetchUrl();
+    jsonResponse = fetchUrl();
   }
 
   @override
@@ -61,7 +61,7 @@ class _MyAppState extends State<MyApp> {
             Expanded(
               child: Center(
                 child: ShowData(
-                  futureJsonResponse: futureJsonResponse,
+                  futureJsonResponse: jsonResponse,
                 ),
               ),
             ),
@@ -78,15 +78,15 @@ class ShowData extends StatelessWidget {
     required this.futureJsonResponse,
   }) : super(key: key);
 
-  final Future<JsonResponse> futureJsonResponse;
+  final Future<ResponseData> futureJsonResponse;
 
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder<JsonResponse>(
+    return FutureBuilder<ResponseData>(
       future: futureJsonResponse,
       builder: (context, snapshot) {
         if (snapshot.hasData) {
-          return Text(snapshot.data!.version);
+          return Text(snapshot.data!.version!);
         } else if (snapshot.hasError) {
           return Text('${snapshot.error}');
         }
