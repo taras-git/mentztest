@@ -17,6 +17,7 @@ final _privateConstructorUsedError = UnsupportedError(
 /// @nodoc
 mixin _$LocationsState {
   List<Location> get locations => throw _privateConstructorUsedError;
+  bool get isLoading => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $LocationsStateCopyWith<LocationsState> get copyWith =>
@@ -29,7 +30,7 @@ abstract class $LocationsStateCopyWith<$Res> {
           LocationsState value, $Res Function(LocationsState) then) =
       _$LocationsStateCopyWithImpl<$Res, LocationsState>;
   @useResult
-  $Res call({List<Location> locations});
+  $Res call({List<Location> locations, bool isLoading});
 }
 
 /// @nodoc
@@ -46,12 +47,17 @@ class _$LocationsStateCopyWithImpl<$Res, $Val extends LocationsState>
   @override
   $Res call({
     Object? locations = null,
+    Object? isLoading = null,
   }) {
     return _then(_value.copyWith(
       locations: null == locations
           ? _value.locations
           : locations // ignore: cast_nullable_to_non_nullable
               as List<Location>,
+      isLoading: null == isLoading
+          ? _value.isLoading
+          : isLoading // ignore: cast_nullable_to_non_nullable
+              as bool,
     ) as $Val);
   }
 }
@@ -64,7 +70,7 @@ abstract class _$$_LocationsStateCopyWith<$Res>
       __$$_LocationsStateCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({List<Location> locations});
+  $Res call({List<Location> locations, bool isLoading});
 }
 
 /// @nodoc
@@ -79,12 +85,17 @@ class __$$_LocationsStateCopyWithImpl<$Res>
   @override
   $Res call({
     Object? locations = null,
+    Object? isLoading = null,
   }) {
     return _then(_$_LocationsState(
       locations: null == locations
           ? _value._locations
           : locations // ignore: cast_nullable_to_non_nullable
               as List<Location>,
+      isLoading: null == isLoading
+          ? _value.isLoading
+          : isLoading // ignore: cast_nullable_to_non_nullable
+              as bool,
     ));
   }
 }
@@ -92,7 +103,8 @@ class __$$_LocationsStateCopyWithImpl<$Res>
 /// @nodoc
 
 class _$_LocationsState extends _LocationsState {
-  const _$_LocationsState({final List<Location> locations = const []})
+  const _$_LocationsState(
+      {final List<Location> locations = const [], this.isLoading = true})
       : _locations = locations,
         super._();
 
@@ -106,8 +118,12 @@ class _$_LocationsState extends _LocationsState {
   }
 
   @override
+  @JsonKey()
+  final bool isLoading;
+
+  @override
   String toString() {
-    return 'LocationsState(locations: $locations)';
+    return 'LocationsState(locations: $locations, isLoading: $isLoading)';
   }
 
   @override
@@ -116,12 +132,14 @@ class _$_LocationsState extends _LocationsState {
         (other.runtimeType == runtimeType &&
             other is _$_LocationsState &&
             const DeepCollectionEquality()
-                .equals(other._locations, _locations));
+                .equals(other._locations, _locations) &&
+            (identical(other.isLoading, isLoading) ||
+                other.isLoading == isLoading));
   }
 
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, const DeepCollectionEquality().hash(_locations));
+  int get hashCode => Object.hash(
+      runtimeType, const DeepCollectionEquality().hash(_locations), isLoading);
 
   @JsonKey(ignore: true)
   @override
@@ -131,12 +149,15 @@ class _$_LocationsState extends _LocationsState {
 }
 
 abstract class _LocationsState extends LocationsState {
-  const factory _LocationsState({final List<Location> locations}) =
-      _$_LocationsState;
+  const factory _LocationsState(
+      {final List<Location> locations,
+      final bool isLoading}) = _$_LocationsState;
   const _LocationsState._() : super._();
 
   @override
   List<Location> get locations;
+  @override
+  bool get isLoading;
   @override
   @JsonKey(ignore: true)
   _$$_LocationsStateCopyWith<_$_LocationsState> get copyWith =>
