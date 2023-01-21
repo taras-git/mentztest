@@ -8,7 +8,7 @@ class LocationsList extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final locations = ref.watch(locationsProvider).locations;
-    final isLoading = ref.watch(locationsProvider).isLoading;
+    final loadingState = ref.watch(locationsProvider).loadingState;
 
     return Scaffold(
       body: SafeArea(
@@ -32,8 +32,10 @@ class LocationsList extends ConsumerWidget {
                 },
               ),
             ),
-            if (isLoading)
+            if (loadingState == LoadingState.loading)
               const CircularProgressIndicator()
+            else if (loadingState == LoadingState.start)
+              const Text('Please enter a search term')
             else
               Expanded(
                 child: Container(

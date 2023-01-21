@@ -26,9 +26,10 @@ class MentzApp extends ConsumerWidget {
     );
 
     return MaterialApp.router(
-      routeInformationProvider: router.routeInformationProvider,
-      routeInformationParser: router.routeInformationParser,
-      routerDelegate: router.routerDelegate,
+      routerConfig: router,
+      // routeInformationProvider: router.routeInformationProvider,
+      // routeInformationParser: router.routeInformationParser,
+      // routerDelegate: router.routerDelegate,
       theme: ThemeData(
         colorScheme: theme.colorScheme.copyWith(
           primary: Colors.black,

@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:http/http.dart' as http;
@@ -13,11 +14,17 @@ final locationsProvider =
   (ref) => LocationsNotifier(),
 );
 
+enum LoadingState {
+  start,
+  loading,
+  loaded,
+}
+
 @freezed
 abstract class LocationsState with _$LocationsState {
   const factory LocationsState({
     @Default([]) List<Location> locations,
-    @Default(true) bool isLoading,
+    @Default(LoadingState.start) LoadingState loadingState,
   }) = _LocationsState;
 
   const LocationsState._();
@@ -25,12 +32,14 @@ abstract class LocationsState with _$LocationsState {
 
 class LocationsNotifier extends StateNotifier<LocationsState> {
   LocationsNotifier() : super(const LocationsState()) {
-    // loadLocations('');
+    state = state.copyWith(
+      loadingState: LoadingState.start,
+    );
   }
 
   Future<void> loadLocations(String searchText) async {
     state = state.copyWith(
-      isLoading: true,
+      loadingState: LoadingState.loading,
     );
 
     final response = await http.get(Uri.parse('$url$searchText'));
@@ -42,7 +51,7 @@ class LocationsNotifier extends StateNotifier<LocationsState> {
 
       state = state.copyWith(
         locations: responseBody.locations!,
-        isLoading: false,
+        loadingState: LoadingState.loaded,
       );
     } else {
       // If the server did not return a 200 OK response,
