@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -18,6 +19,8 @@ enum LoadingState {
   start,
   loading,
   loaded,
+  error,
+  noConnection,
 }
 
 @freezed
@@ -42,21 +45,28 @@ class LocationsNotifier extends StateNotifier<LocationsState> {
       loadingState: LoadingState.loading,
     );
 
-    final response = await http.get(Uri.parse('$url$searchText'));
+    try {
+      final response = await http.get(Uri.parse('$url$searchText'));
+      if (response.statusCode == 200) {
+        // If the server did return a 200 OK response,
+        // then parse the JSON.
+        final responseBody = LocationsData.fromJson(jsonDecode(response.body));
 
-    if (response.statusCode == 200) {
-      // If the server did return a 200 OK response,
-      // then parse the JSON.
-      final responseBody = LocationsData.fromJson(jsonDecode(response.body));
-
+        state = state.copyWith(
+          locations: responseBody.locations!,
+          loadingState: LoadingState.loaded,
+        );
+      } else {
+        // If the server did not return a 200 OK response,
+        state = state.copyWith(
+          loadingState: LoadingState.error,
+        );
+        debugPrint('Failed to load response');
+      }
+    } on SocketException {
       state = state.copyWith(
-        locations: responseBody.locations!,
-        loadingState: LoadingState.loaded,
+        loadingState: LoadingState.noConnection,
       );
-    } else {
-      // If the server did not return a 200 OK response,
-      // then throw an exception.
-      throw Exception('Failed to load response');
     }
   }
 }

@@ -36,6 +36,10 @@ class LocationsList extends ConsumerWidget {
               const CircularProgressIndicator()
             else if (loadingState == LoadingState.start)
               const Text('Please enter a search term')
+            else if (loadingState == LoadingState.error)
+              const Text('There is something wrong...')
+            else if (loadingState == LoadingState.noConnection)
+              const Text('There is something wrong with connection...')
             else
               Expanded(
                 child: Container(
