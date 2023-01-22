@@ -39,13 +39,13 @@ class LocationsList extends ConsumerWidget {
                         autocorrect: false,
                         validator: (value) {
                           if (value == null || value.isEmpty) {
-                            return 'Please enter search text';
+                            return 'Please enter a search term';
                           }
                           return null;
                         },
                         decoration: const InputDecoration(
                           border: OutlineInputBorder(),
-                          hintText: 'Enter a search term',
+                          hintText: 'Please enter a search term',
                         ),
                       ),
                     ),
@@ -59,7 +59,7 @@ class LocationsList extends ConsumerWidget {
                       }
                       textFieldController.clear();
                     },
-                    child: const Text('Search'),
+                    child: const Text('Search it!'),
                   ),
                 ],
               ),
