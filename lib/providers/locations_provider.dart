@@ -28,6 +28,7 @@ abstract class LocationsState with _$LocationsState {
   const factory LocationsState({
     @Default([]) List<Location> locations,
     @Default([]) List<String> locationTypes,
+    @Default('All') String filterByType,
     @Default(LoadingState.start) LoadingState loadingState,
   }) = _LocationsState;
 

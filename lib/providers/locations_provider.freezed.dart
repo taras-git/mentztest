@@ -18,6 +18,7 @@ final _privateConstructorUsedError = UnsupportedError(
 mixin _$LocationsState {
   List<Location> get locations => throw _privateConstructorUsedError;
   List<String> get locationTypes => throw _privateConstructorUsedError;
+  String get filterByType => throw _privateConstructorUsedError;
   LoadingState get loadingState => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
@@ -34,6 +35,7 @@ abstract class $LocationsStateCopyWith<$Res> {
   $Res call(
       {List<Location> locations,
       List<String> locationTypes,
+      String filterByType,
       LoadingState loadingState});
 }
 
@@ -52,6 +54,7 @@ class _$LocationsStateCopyWithImpl<$Res, $Val extends LocationsState>
   $Res call({
     Object? locations = null,
     Object? locationTypes = null,
+    Object? filterByType = null,
     Object? loadingState = null,
   }) {
     return _then(_value.copyWith(
@@ -63,6 +66,10 @@ class _$LocationsStateCopyWithImpl<$Res, $Val extends LocationsState>
           ? _value.locationTypes
           : locationTypes // ignore: cast_nullable_to_non_nullable
               as List<String>,
+      filterByType: null == filterByType
+          ? _value.filterByType
+          : filterByType // ignore: cast_nullable_to_non_nullable
+              as String,
       loadingState: null == loadingState
           ? _value.loadingState
           : loadingState // ignore: cast_nullable_to_non_nullable
@@ -82,6 +89,7 @@ abstract class _$$_LocationsStateCopyWith<$Res>
   $Res call(
       {List<Location> locations,
       List<String> locationTypes,
+      String filterByType,
       LoadingState loadingState});
 }
 
@@ -98,6 +106,7 @@ class __$$_LocationsStateCopyWithImpl<$Res>
   $Res call({
     Object? locations = null,
     Object? locationTypes = null,
+    Object? filterByType = null,
     Object? loadingState = null,
   }) {
     return _then(_$_LocationsState(
@@ -109,6 +118,10 @@ class __$$_LocationsStateCopyWithImpl<$Res>
           ? _value._locationTypes
           : locationTypes // ignore: cast_nullable_to_non_nullable
               as List<String>,
+      filterByType: null == filterByType
+          ? _value.filterByType
+          : filterByType // ignore: cast_nullable_to_non_nullable
+              as String,
       loadingState: null == loadingState
           ? _value.loadingState
           : loadingState // ignore: cast_nullable_to_non_nullable
@@ -123,6 +136,7 @@ class _$_LocationsState extends _LocationsState {
   const _$_LocationsState(
       {final List<Location> locations = const [],
       final List<String> locationTypes = const [],
+      this.filterByType = 'All',
       this.loadingState = LoadingState.start})
       : _locations = locations,
         _locationTypes = locationTypes,
@@ -148,11 +162,14 @@ class _$_LocationsState extends _LocationsState {
 
   @override
   @JsonKey()
+  final String filterByType;
+  @override
+  @JsonKey()
   final LoadingState loadingState;
 
   @override
   String toString() {
-    return 'LocationsState(locations: $locations, locationTypes: $locationTypes, loadingState: $loadingState)';
+    return 'LocationsState(locations: $locations, locationTypes: $locationTypes, filterByType: $filterByType, loadingState: $loadingState)';
   }
 
   @override
@@ -164,6 +181,8 @@ class _$_LocationsState extends _LocationsState {
                 .equals(other._locations, _locations) &&
             const DeepCollectionEquality()
                 .equals(other._locationTypes, _locationTypes) &&
+            (identical(other.filterByType, filterByType) ||
+                other.filterByType == filterByType) &&
             (identical(other.loadingState, loadingState) ||
                 other.loadingState == loadingState));
   }
@@ -173,6 +192,7 @@ class _$_LocationsState extends _LocationsState {
       runtimeType,
       const DeepCollectionEquality().hash(_locations),
       const DeepCollectionEquality().hash(_locationTypes),
+      filterByType,
       loadingState);
 
   @JsonKey(ignore: true)
@@ -186,6 +206,7 @@ abstract class _LocationsState extends LocationsState {
   const factory _LocationsState(
       {final List<Location> locations,
       final List<String> locationTypes,
+      final String filterByType,
       final LoadingState loadingState}) = _$_LocationsState;
   const _LocationsState._() : super._();
 
@@ -193,6 +214,8 @@ abstract class _LocationsState extends LocationsState {
   List<Location> get locations;
   @override
   List<String> get locationTypes;
+  @override
+  String get filterByType;
   @override
   LoadingState get loadingState;
   @override
