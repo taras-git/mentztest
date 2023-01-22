@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:mentztest/providers/locations_provider.dart';
 
-class FilterLocationsDropdown extends ConsumerStatefulWidget {
+class FilterByTypeDropdownButton extends ConsumerStatefulWidget {
   final List<String> locationTypes;
 
-  const FilterLocationsDropdown({
+  const FilterByTypeDropdownButton({
     Key? key,
     required this.locationTypes,
   }) : super(key: key);
@@ -15,7 +15,7 @@ class FilterLocationsDropdown extends ConsumerStatefulWidget {
 }
 
 class FilterLocationsDropdownState
-    extends ConsumerState<FilterLocationsDropdown> {
+    extends ConsumerState<FilterByTypeDropdownButton> {
   var dropdownValue;
 
   @override
@@ -38,6 +38,7 @@ class FilterLocationsDropdownState
       onChanged: (value) {
         setState(() {
           dropdownValue = value;
+          ref.watch(locationsProvider.notifier).filterByType(value!);
         });
       },
       items: ref

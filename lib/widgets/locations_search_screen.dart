@@ -15,6 +15,10 @@ class LocationsSearchScreen extends ConsumerWidget {
     final locations = ref.watch(locationsProvider).locations;
     final loadingState = ref.watch(locationsProvider).loadingState;
     final locationTypes = ref.watch(locationsProvider).locationTypes;
+    final filter = ref.watch(locationsProvider).filterByType;
+    final filteredLocations = filter == 'All'
+        ? locations
+        : locations.where((loc) => loc.type == filter).toList();
 
     return Scaffold(
       body: SafeArea(
@@ -60,6 +64,9 @@ class LocationsSearchScreen extends ConsumerWidget {
                       OutlinedButton(
                         onPressed: () async {
                           if (_formKey.currentState!.validate()) {
+                            ref
+                                .read(locationsProvider.notifier)
+                                .filterByType('All');
                             await ref
                                 .read(locationsProvider.notifier)
                                 .loadLocations(textFieldController.text);
@@ -71,7 +78,8 @@ class LocationsSearchScreen extends ConsumerWidget {
                       Row(
                         children: [
                           const Text('Filter by type: '),
-                          FilterLocationsDropdown(locationTypes: locationTypes),
+                          FilterByTypeDropdownButton(
+                              locationTypes: locationTypes),
                         ],
                       ),
                     ],
@@ -89,7 +97,7 @@ class LocationsSearchScreen extends ConsumerWidget {
             else if (loadingState == LoadingState.noConnection)
               const Text('There is something wrong with connection...')
             else
-              CardsList(locations: locations)
+              CardsList(locations: filteredLocations)
           ],
         ),
       ),
