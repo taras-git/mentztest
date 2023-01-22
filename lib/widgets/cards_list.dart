@@ -77,7 +77,7 @@ class CardEntry extends StatelessWidget {
   Widget build(BuildContext context) {
     return RichText(
       text: TextSpan(
-        text: '$title:',
+        text: '$title:  ',
         style: const TextStyle().copyWith(
           color: Colors.black,
           fontWeight: FontWeight.bold,
