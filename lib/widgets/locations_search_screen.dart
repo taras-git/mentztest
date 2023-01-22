@@ -98,7 +98,6 @@ class LocationsSearchScreen extends ConsumerWidget {
 
 class FilterLocationsDropdown extends ConsumerStatefulWidget {
   final List<String> locationTypes;
-  // var dropdownValue = ref.watch(locationsProvider).locationTypes.first;
 
   const FilterLocationsDropdown({
     Key? key,
