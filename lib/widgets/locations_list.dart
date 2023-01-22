@@ -37,23 +37,26 @@ class LocationsList extends ConsumerWidget {
             else if (loadingState == LoadingState.start)
               const Text('Please enter a search term')
             else if (loadingState == LoadingState.error)
-              const Text('There is something wrong...')
+              const Text('There is something wrong with data...')
             else if (loadingState == LoadingState.noConnection)
               const Text('There is something wrong with connection...')
             else
               Expanded(
-                child: Container(
-                  color: Colors.white,
-                  child: ListView.builder(
-                    shrinkWrap: true,
-                    itemCount: locations.length,
-                    itemBuilder: (
-                      context,
-                      index,
-                    ) {
-                      final loc = locations[index];
-                      return Text(loc.name!);
-                    },
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 12.0),
+                  child: Container(
+                    color: Colors.white,
+                    child: ListView.builder(
+                      shrinkWrap: true,
+                      itemCount: locations.length,
+                      itemBuilder: (
+                        context,
+                        index,
+                      ) {
+                        final loc = locations[index];
+                        return Text(loc.name!);
+                      },
+                    ),
                   ),
                 ),
               )

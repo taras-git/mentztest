@@ -28,6 +28,7 @@ class MentzApp extends ConsumerWidget {
     return MaterialApp.router(
       routerConfig: router,
       theme: ThemeData(
+        fontFamily: 'Roboto',
         colorScheme: theme.colorScheme.copyWith(
           primary: Colors.black,
           secondary: Colors.blue,
