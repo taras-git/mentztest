@@ -21,7 +21,7 @@ class MentzApp extends ConsumerWidget {
               context,
               state,
             ) =>
-                const LocationsList()),
+                LocationsList()),
       ],
     );
 

@@ -3,7 +3,9 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:mentztest/providers/locations_provider.dart';
 
 class LocationsList extends ConsumerWidget {
-  const LocationsList({Key? key}) : super(key: key);
+  LocationsList({Key? key}) : super(key: key);
+  final _formKey = GlobalKey<FormState>();
+  final textFieldController = TextEditingController();
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -14,24 +16,55 @@ class LocationsList extends ConsumerWidget {
       body: SafeArea(
         child: Column(
           children: [
-            Padding(
-              padding: const EdgeInsets.symmetric(
-                horizontal: 8,
-                vertical: 20,
-              ),
-              child: TextField(
-                autocorrect: false,
-                decoration: const InputDecoration(
-                  border: OutlineInputBorder(),
-                  hintText: 'Enter a search term',
-                ),
-                onSubmitted: (text) async {
-                  await ref
-                      .read(locationsProvider.notifier)
-                      .loadLocations(text);
-                },
+            const Padding(
+              padding: EdgeInsets.only(top: 12.0),
+              child: Text(
+                'Locations locator',
+                style: TextStyle(fontSize: 24),
               ),
             ),
+            Form(
+              key: _formKey,
+              child: Column(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 8,
+                      vertical: 20,
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 12.0),
+                      child: TextFormField(
+                        controller: textFieldController,
+                        autocorrect: false,
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return 'Please enter search text';
+                          }
+                          return null;
+                        },
+                        decoration: const InputDecoration(
+                          border: OutlineInputBorder(),
+                          hintText: 'Enter a search term',
+                        ),
+                      ),
+                    ),
+                  ),
+                  OutlinedButton(
+                    onPressed: () async {
+                      if (_formKey.currentState!.validate()) {
+                        await ref
+                            .read(locationsProvider.notifier)
+                            .loadLocations(textFieldController.text);
+                      }
+                      textFieldController.clear();
+                    },
+                    child: const Text('Search'),
+                  ),
+                ],
+              ),
+            ),
+            const SizedBox(height: 12),
             if (loadingState == LoadingState.loading)
               const CircularProgressIndicator()
             else if (loadingState == LoadingState.start)
