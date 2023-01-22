@@ -17,7 +17,7 @@ final _privateConstructorUsedError = UnsupportedError(
 /// @nodoc
 mixin _$LocationsState {
   List<Location> get locations => throw _privateConstructorUsedError;
-  bool get isLoading => throw _privateConstructorUsedError;
+  LoadingState get loadingState => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $LocationsStateCopyWith<LocationsState> get copyWith =>
@@ -30,7 +30,7 @@ abstract class $LocationsStateCopyWith<$Res> {
           LocationsState value, $Res Function(LocationsState) then) =
       _$LocationsStateCopyWithImpl<$Res, LocationsState>;
   @useResult
-  $Res call({List<Location> locations, bool isLoading});
+  $Res call({List<Location> locations, LoadingState loadingState});
 }
 
 /// @nodoc
@@ -47,17 +47,17 @@ class _$LocationsStateCopyWithImpl<$Res, $Val extends LocationsState>
   @override
   $Res call({
     Object? locations = null,
-    Object? isLoading = null,
+    Object? loadingState = null,
   }) {
     return _then(_value.copyWith(
       locations: null == locations
           ? _value.locations
           : locations // ignore: cast_nullable_to_non_nullable
               as List<Location>,
-      isLoading: null == isLoading
-          ? _value.isLoading
-          : isLoading // ignore: cast_nullable_to_non_nullable
-              as bool,
+      loadingState: null == loadingState
+          ? _value.loadingState
+          : loadingState // ignore: cast_nullable_to_non_nullable
+              as LoadingState,
     ) as $Val);
   }
 }
@@ -70,7 +70,7 @@ abstract class _$$_LocationsStateCopyWith<$Res>
       __$$_LocationsStateCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({List<Location> locations, bool isLoading});
+  $Res call({List<Location> locations, LoadingState loadingState});
 }
 
 /// @nodoc
@@ -85,17 +85,17 @@ class __$$_LocationsStateCopyWithImpl<$Res>
   @override
   $Res call({
     Object? locations = null,
-    Object? isLoading = null,
+    Object? loadingState = null,
   }) {
     return _then(_$_LocationsState(
       locations: null == locations
           ? _value._locations
           : locations // ignore: cast_nullable_to_non_nullable
               as List<Location>,
-      isLoading: null == isLoading
-          ? _value.isLoading
-          : isLoading // ignore: cast_nullable_to_non_nullable
-              as bool,
+      loadingState: null == loadingState
+          ? _value.loadingState
+          : loadingState // ignore: cast_nullable_to_non_nullable
+              as LoadingState,
     ));
   }
 }
@@ -104,7 +104,8 @@ class __$$_LocationsStateCopyWithImpl<$Res>
 
 class _$_LocationsState extends _LocationsState {
   const _$_LocationsState(
-      {final List<Location> locations = const [], this.isLoading = true})
+      {final List<Location> locations = const [],
+      this.loadingState = LoadingState.start})
       : _locations = locations,
         super._();
 
@@ -119,11 +120,11 @@ class _$_LocationsState extends _LocationsState {
 
   @override
   @JsonKey()
-  final bool isLoading;
+  final LoadingState loadingState;
 
   @override
   String toString() {
-    return 'LocationsState(locations: $locations, isLoading: $isLoading)';
+    return 'LocationsState(locations: $locations, loadingState: $loadingState)';
   }
 
   @override
@@ -133,13 +134,13 @@ class _$_LocationsState extends _LocationsState {
             other is _$_LocationsState &&
             const DeepCollectionEquality()
                 .equals(other._locations, _locations) &&
-            (identical(other.isLoading, isLoading) ||
-                other.isLoading == isLoading));
+            (identical(other.loadingState, loadingState) ||
+                other.loadingState == loadingState));
   }
 
   @override
-  int get hashCode => Object.hash(
-      runtimeType, const DeepCollectionEquality().hash(_locations), isLoading);
+  int get hashCode => Object.hash(runtimeType,
+      const DeepCollectionEquality().hash(_locations), loadingState);
 
   @JsonKey(ignore: true)
   @override
@@ -151,13 +152,13 @@ class _$_LocationsState extends _LocationsState {
 abstract class _LocationsState extends LocationsState {
   const factory _LocationsState(
       {final List<Location> locations,
-      final bool isLoading}) = _$_LocationsState;
+      final LoadingState loadingState}) = _$_LocationsState;
   const _LocationsState._() : super._();
 
   @override
   List<Location> get locations;
   @override
-  bool get isLoading;
+  LoadingState get loadingState;
   @override
   @JsonKey(ignore: true)
   _$$_LocationsStateCopyWith<_$_LocationsState> get copyWith =>

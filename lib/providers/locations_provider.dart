@@ -1,5 +1,7 @@
 import 'dart:convert';
+import 'dart:io';
 
+import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:http/http.dart' as http;
@@ -13,11 +15,19 @@ final locationsProvider =
   (ref) => LocationsNotifier(),
 );
 
+enum LoadingState {
+  start,
+  loading,
+  loaded,
+  error,
+  noConnection,
+}
+
 @freezed
 abstract class LocationsState with _$LocationsState {
   const factory LocationsState({
     @Default([]) List<Location> locations,
-    @Default(true) bool isLoading,
+    @Default(LoadingState.start) LoadingState loadingState,
   }) = _LocationsState;
 
   const LocationsState._();
@@ -25,29 +35,38 @@ abstract class LocationsState with _$LocationsState {
 
 class LocationsNotifier extends StateNotifier<LocationsState> {
   LocationsNotifier() : super(const LocationsState()) {
-    // loadLocations('');
+    state = state.copyWith(
+      loadingState: LoadingState.start,
+    );
   }
 
   Future<void> loadLocations(String searchText) async {
     state = state.copyWith(
-      isLoading: true,
+      loadingState: LoadingState.loading,
     );
 
-    final response = await http.get(Uri.parse('$url$searchText'));
+    try {
+      final response = await http.get(Uri.parse('$url$searchText'));
+      if (response.statusCode == 200) {
+        // If the server did return a 200 OK response,
+        // then parse the JSON.
+        final responseBody = LocationsData.fromJson(jsonDecode(response.body));
 
-    if (response.statusCode == 200) {
-      // If the server did return a 200 OK response,
-      // then parse the JSON.
-      final responseBody = LocationsData.fromJson(jsonDecode(response.body));
-
+        state = state.copyWith(
+          locations: responseBody.locations!,
+          loadingState: LoadingState.loaded,
+        );
+      } else {
+        // If the server did not return a 200 OK response,
+        state = state.copyWith(
+          loadingState: LoadingState.error,
+        );
+        debugPrint('Failed to load response');
+      }
+    } on SocketException {
       state = state.copyWith(
-        locations: responseBody.locations!,
-        isLoading: false,
+        loadingState: LoadingState.noConnection,
       );
-    } else {
-      // If the server did not return a 200 OK response,
-      // then throw an exception.
-      throw Exception('Failed to load response');
     }
   }
 }
