@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:mentztest/providers/locations_provider.dart';
+import 'package:mentztest/widgets/cards_list.dart';
 
 class LocationsList extends ConsumerWidget {
   LocationsList({Key? key}) : super(key: key);
@@ -74,38 +75,7 @@ class LocationsList extends ConsumerWidget {
             else if (loadingState == LoadingState.noConnection)
               const Text('There is something wrong with connection...')
             else
-              Expanded(
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 12.0),
-                  child: Container(
-                    color: Colors.white,
-                    child: ListView.builder(
-                      shrinkWrap: true,
-                      itemCount: locations.length,
-                      itemBuilder: (
-                        context,
-                        index,
-                      ) {
-                        final loc = locations[index];
-                        return Card(
-                            elevation: 2,
-                            shadowColor: Colors.black,
-                            color: Colors.grey[100],
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text('name: ${loc.name ?? 'no data'}'),
-                                Text('type: ${loc.type ?? 'no data'}'),
-                                Text('locality: ${loc.coord ?? 'no data'}'),
-                                Text(
-                                    'street name: ${loc.streetName ?? 'no data'}'),
-                              ],
-                            ));
-                      },
-                    ),
-                  ),
-                ),
-              )
+              CardsList(locations: locations)
           ],
         ),
       ),
