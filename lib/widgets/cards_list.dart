@@ -25,23 +25,71 @@ class CardsList extends StatelessWidget {
             ) {
               final loc = locations[index];
               return Card(
-                  elevation: 2,
-                  shadowColor: Colors.black,
-                  color: Colors.grey[100],
-                  child: Padding(
-                      padding: const EdgeInsets.all(12.0),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text('name: ${loc.name ?? 'no data'}'),
-                          Text('type: ${loc.type ?? 'no data'}'),
-                          Text('locality: ${loc.coord ?? 'no data'}'),
-                          Text('street name: ${loc.streetName ?? 'no data'}'),
-                        ],
-                      )));
+                elevation: 2,
+                shadowColor: Colors.black,
+                color: Colors.grey[100],
+                child: Padding(
+                  padding: const EdgeInsets.all(12.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      CardEntry(title: 'NAME', loc: loc.name),
+                      CardEntry(title: 'TYPE', loc: loc.type),
+                      CardEntry(title: 'LOCATION', loc: loc.coord),
+                      if (loc.streetName == null)
+                        Container()
+                      else
+                        CardEntry(
+                          title: 'STREET',
+                          loc: loc.streetName,
+                        ),
+                      if (loc.buildingNumber == null)
+                        Container()
+                      else
+                        CardEntry(
+                          title: 'BUILDING No',
+                          loc: loc.buildingNumber,
+                        ),
+                    ],
+                  ),
+                ),
+              );
             },
           ),
         ),
+      ),
+    );
+  }
+}
+
+class CardEntry extends StatelessWidget {
+  const CardEntry({
+    Key? key,
+    required this.title,
+    required this.loc,
+  }) : super(key: key);
+
+  final String title;
+  // ignore: type_annotate_public_apis, prefer_typing_uninitialized_variables
+  final loc;
+
+  @override
+  Widget build(BuildContext context) {
+    return RichText(
+      text: TextSpan(
+        text: '$title:',
+        style: const TextStyle().copyWith(
+          color: Colors.black,
+          fontWeight: FontWeight.bold,
+        ),
+        children: <TextSpan>[
+          TextSpan(
+              text: '${loc ?? 'no data'}',
+              style: const TextStyle(
+                color: Colors.black,
+                fontWeight: FontWeight.normal,
+              )),
+        ],
       ),
     );
   }
