@@ -27,7 +27,7 @@ enum LoadingState {
 abstract class LocationsState with _$LocationsState {
   const factory LocationsState({
     @Default([]) List<Location> locations,
-    @Default(['All']) List<String> locationTypes,
+    @Default([]) List<String> locationTypes,
     @Default(LoadingState.start) LoadingState loadingState,
   }) = _LocationsState;
 

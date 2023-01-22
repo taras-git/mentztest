@@ -122,7 +122,7 @@ class __$$_LocationsStateCopyWithImpl<$Res>
 class _$_LocationsState extends _LocationsState {
   const _$_LocationsState(
       {final List<Location> locations = const [],
-      final List<String> locationTypes = const ['All'],
+      final List<String> locationTypes = const [],
       this.loadingState = LoadingState.start})
       : _locations = locations,
         _locationTypes = locationTypes,
