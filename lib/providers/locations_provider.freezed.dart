@@ -17,6 +17,7 @@ final _privateConstructorUsedError = UnsupportedError(
 /// @nodoc
 mixin _$LocationsState {
   List<Location> get locations => throw _privateConstructorUsedError;
+  List<String> get locationTypes => throw _privateConstructorUsedError;
   LoadingState get loadingState => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
@@ -30,7 +31,10 @@ abstract class $LocationsStateCopyWith<$Res> {
           LocationsState value, $Res Function(LocationsState) then) =
       _$LocationsStateCopyWithImpl<$Res, LocationsState>;
   @useResult
-  $Res call({List<Location> locations, LoadingState loadingState});
+  $Res call(
+      {List<Location> locations,
+      List<String> locationTypes,
+      LoadingState loadingState});
 }
 
 /// @nodoc
@@ -47,6 +51,7 @@ class _$LocationsStateCopyWithImpl<$Res, $Val extends LocationsState>
   @override
   $Res call({
     Object? locations = null,
+    Object? locationTypes = null,
     Object? loadingState = null,
   }) {
     return _then(_value.copyWith(
@@ -54,6 +59,10 @@ class _$LocationsStateCopyWithImpl<$Res, $Val extends LocationsState>
           ? _value.locations
           : locations // ignore: cast_nullable_to_non_nullable
               as List<Location>,
+      locationTypes: null == locationTypes
+          ? _value.locationTypes
+          : locationTypes // ignore: cast_nullable_to_non_nullable
+              as List<String>,
       loadingState: null == loadingState
           ? _value.loadingState
           : loadingState // ignore: cast_nullable_to_non_nullable
@@ -70,7 +79,10 @@ abstract class _$$_LocationsStateCopyWith<$Res>
       __$$_LocationsStateCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({List<Location> locations, LoadingState loadingState});
+  $Res call(
+      {List<Location> locations,
+      List<String> locationTypes,
+      LoadingState loadingState});
 }
 
 /// @nodoc
@@ -85,6 +97,7 @@ class __$$_LocationsStateCopyWithImpl<$Res>
   @override
   $Res call({
     Object? locations = null,
+    Object? locationTypes = null,
     Object? loadingState = null,
   }) {
     return _then(_$_LocationsState(
@@ -92,6 +105,10 @@ class __$$_LocationsStateCopyWithImpl<$Res>
           ? _value._locations
           : locations // ignore: cast_nullable_to_non_nullable
               as List<Location>,
+      locationTypes: null == locationTypes
+          ? _value._locationTypes
+          : locationTypes // ignore: cast_nullable_to_non_nullable
+              as List<String>,
       loadingState: null == loadingState
           ? _value.loadingState
           : loadingState // ignore: cast_nullable_to_non_nullable
@@ -105,8 +122,10 @@ class __$$_LocationsStateCopyWithImpl<$Res>
 class _$_LocationsState extends _LocationsState {
   const _$_LocationsState(
       {final List<Location> locations = const [],
+      final List<String> locationTypes = const ['All'],
       this.loadingState = LoadingState.start})
       : _locations = locations,
+        _locationTypes = locationTypes,
         super._();
 
   final List<Location> _locations;
@@ -118,13 +137,22 @@ class _$_LocationsState extends _LocationsState {
     return EqualUnmodifiableListView(_locations);
   }
 
+  final List<String> _locationTypes;
+  @override
+  @JsonKey()
+  List<String> get locationTypes {
+    if (_locationTypes is EqualUnmodifiableListView) return _locationTypes;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_locationTypes);
+  }
+
   @override
   @JsonKey()
   final LoadingState loadingState;
 
   @override
   String toString() {
-    return 'LocationsState(locations: $locations, loadingState: $loadingState)';
+    return 'LocationsState(locations: $locations, locationTypes: $locationTypes, loadingState: $loadingState)';
   }
 
   @override
@@ -134,13 +162,18 @@ class _$_LocationsState extends _LocationsState {
             other is _$_LocationsState &&
             const DeepCollectionEquality()
                 .equals(other._locations, _locations) &&
+            const DeepCollectionEquality()
+                .equals(other._locationTypes, _locationTypes) &&
             (identical(other.loadingState, loadingState) ||
                 other.loadingState == loadingState));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType,
-      const DeepCollectionEquality().hash(_locations), loadingState);
+  int get hashCode => Object.hash(
+      runtimeType,
+      const DeepCollectionEquality().hash(_locations),
+      const DeepCollectionEquality().hash(_locationTypes),
+      loadingState);
 
   @JsonKey(ignore: true)
   @override
@@ -152,11 +185,14 @@ class _$_LocationsState extends _LocationsState {
 abstract class _LocationsState extends LocationsState {
   const factory _LocationsState(
       {final List<Location> locations,
+      final List<String> locationTypes,
       final LoadingState loadingState}) = _$_LocationsState;
   const _LocationsState._() : super._();
 
   @override
   List<Location> get locations;
+  @override
+  List<String> get locationTypes;
   @override
   LoadingState get loadingState;
   @override
