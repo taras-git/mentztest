@@ -44,6 +44,7 @@ class MentzApp extends ConsumerWidget {
           style: OutlinedButton.styleFrom(
             foregroundColor: Colors.white,
             backgroundColor: Colors.green,
+            disabledBackgroundColor: Colors.grey,
             side: const BorderSide(
               color: Colors.blue,
               width: 2,

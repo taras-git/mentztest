@@ -87,7 +87,20 @@ class LocationsList extends ConsumerWidget {
                         index,
                       ) {
                         final loc = locations[index];
-                        return Text(loc.name!);
+                        return Card(
+                            elevation: 2,
+                            shadowColor: Colors.black,
+                            color: Colors.grey[100],
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text('name: ${loc.name ?? 'no data'}'),
+                                Text('type: ${loc.type ?? 'no data'}'),
+                                Text('locality: ${loc.coord ?? 'no data'}'),
+                                Text(
+                                    'street name: ${loc.streetName ?? 'no data'}'),
+                              ],
+                            ));
                       },
                     ),
                   ),
