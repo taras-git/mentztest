@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mentztest/data_model/locations_data.dart';
+import 'package:mentztest/widgets/card_entry.dart';
 
 class CardsList extends StatelessWidget {
   const CardsList({
@@ -57,39 +58,6 @@ class CardsList extends StatelessWidget {
             },
           ),
         ),
-      ),
-    );
-  }
-}
-
-class CardEntry extends StatelessWidget {
-  const CardEntry({
-    Key? key,
-    required this.title,
-    required this.loc,
-  }) : super(key: key);
-
-  final String title;
-  // ignore: type_annotate_public_apis, prefer_typing_uninitialized_variables
-  final loc;
-
-  @override
-  Widget build(BuildContext context) {
-    return RichText(
-      text: TextSpan(
-        text: '$title:  ',
-        style: const TextStyle().copyWith(
-          color: Colors.black,
-          fontWeight: FontWeight.bold,
-        ),
-        children: <TextSpan>[
-          TextSpan(
-              text: '${loc ?? 'no data'}',
-              style: const TextStyle(
-                color: Colors.black,
-                fontWeight: FontWeight.normal,
-              )),
-        ],
       ),
     );
   }
