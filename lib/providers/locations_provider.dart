@@ -24,10 +24,11 @@ enum LoadingState {
 }
 
 @freezed
-abstract class LocationsState with _$LocationsState {
+class LocationsState with _$LocationsState {
   const factory LocationsState({
     @Default([]) List<Location> locations,
     @Default(['All']) List<String> locationTypes,
+    @Default('All') String filterByType,
     @Default(LoadingState.start) LoadingState loadingState,
   }) = _LocationsState;
 
@@ -38,6 +39,12 @@ class LocationsNotifier extends StateNotifier<LocationsState> {
   LocationsNotifier() : super(const LocationsState()) {
     state = state.copyWith(
       loadingState: LoadingState.start,
+    );
+  }
+
+  void filterByType(String filter) {
+    state = state.copyWith(
+      filterByType: filter,
     );
   }
 

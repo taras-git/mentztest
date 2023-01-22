@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+
 import 'package:mentztest/providers/locations_provider.dart';
 import 'package:mentztest/widgets/cards_list.dart';
+import 'package:mentztest/widgets/dropdown_filter_button.dart';
 
 class LocationsSearchScreen extends ConsumerWidget {
   LocationsSearchScreen({Key? key}) : super(key: key);
@@ -12,6 +14,11 @@ class LocationsSearchScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final locations = ref.watch(locationsProvider).locations;
     final loadingState = ref.watch(locationsProvider).loadingState;
+    final locationTypes = ref.watch(locationsProvider).locationTypes;
+    final filter = ref.watch(locationsProvider).filterByType;
+    final filteredLocations = filter == 'All'
+        ? locations
+        : locations.where((loc) => loc.type == filter).toList();
 
     return Scaffold(
       body: SafeArea(
@@ -51,16 +58,31 @@ class LocationsSearchScreen extends ConsumerWidget {
                       ),
                     ),
                   ),
-                  OutlinedButton(
-                    onPressed: () async {
-                      if (_formKey.currentState!.validate()) {
-                        await ref
-                            .read(locationsProvider.notifier)
-                            .loadLocations(textFieldController.text);
-                      }
-                      textFieldController.clear();
-                    },
-                    child: const Text('Search it!'),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      OutlinedButton(
+                        onPressed: () async {
+                          if (_formKey.currentState!.validate()) {
+                            ref
+                                .read(locationsProvider.notifier)
+                                .filterByType('All');
+                            await ref
+                                .read(locationsProvider.notifier)
+                                .loadLocations(textFieldController.text);
+                          }
+                          textFieldController.clear();
+                        },
+                        child: const Text('Search it!'),
+                      ),
+                      Row(
+                        children: [
+                          const Text('Filter by type: '),
+                          FilterByTypeDropdownButton(
+                              locationTypes: locationTypes),
+                        ],
+                      ),
+                    ],
                   ),
                 ],
               ),
@@ -75,7 +97,7 @@ class LocationsSearchScreen extends ConsumerWidget {
             else if (loadingState == LoadingState.noConnection)
               const Text('There is something wrong with connection...')
             else
-              CardsList(locations: locations)
+              CardsList(locations: filteredLocations)
           ],
         ),
       ),
