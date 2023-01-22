@@ -3,8 +3,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:mentztest/providers/locations_provider.dart';
 import 'package:mentztest/widgets/cards_list.dart';
 
-class LocationsList extends ConsumerWidget {
-  LocationsList({Key? key}) : super(key: key);
+class LocationsSearchScreen extends ConsumerWidget {
+  LocationsSearchScreen({Key? key}) : super(key: key);
   final _formKey = GlobalKey<FormState>();
   final textFieldController = TextEditingController();
 
