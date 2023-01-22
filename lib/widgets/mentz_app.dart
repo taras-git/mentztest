@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:mentztest/widgets/locations_list.dart';
+import 'package:mentztest/widgets/locations_search_screen.dart';
 
 class MentzApp extends ConsumerWidget {
   const MentzApp({Key? key}) : super(key: key);
@@ -21,7 +21,7 @@ class MentzApp extends ConsumerWidget {
               context,
               state,
             ) =>
-                LocationsList()),
+                LocationsSearchScreen()),
       ],
     );
 
