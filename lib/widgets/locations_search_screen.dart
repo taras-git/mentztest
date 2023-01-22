@@ -71,7 +71,6 @@ class LocationsSearchScreen extends ConsumerWidget {
                                 .read(locationsProvider.notifier)
                                 .loadLocations(textFieldController.text);
                           }
-                          textFieldController.clear();
                         },
                         child: const Text('Search it!'),
                       ),
