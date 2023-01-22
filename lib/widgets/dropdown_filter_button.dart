@@ -19,13 +19,9 @@ class FilterLocationsDropdownState
   var dropdownValue;
 
   @override
-  void initState() {
-    super.initState();
-    dropdownValue = ref.read(locationsProvider).locationTypes.first;
-  }
-
-  @override
   Widget build(BuildContext context) {
+    dropdownValue = ref.read(locationsProvider).filterByType;
+
     return DropdownButton<String>(
       value: dropdownValue,
       icon: const Icon(Icons.arrow_downward),
