@@ -51,10 +51,17 @@ class LocationsNotifier extends StateNotifier<LocationsState> {
       if (response.statusCode == 200) {
         // If the server did return a 200 OK response,
         // then parse the JSON.
-        final responseBody = LocationsData.fromJson(jsonDecode(response.body));
+        final locations =
+            LocationsData.fromJson(jsonDecode(response.body)).locations!;
+        final locationsTypes =
+            locations.map((loc) => loc.type!).toSet().toList();
+
+        // ignore: cascade_invocations
+        locationsTypes.insert(0, 'All');
 
         state = state.copyWith(
-          locations: responseBody.locations!,
+          locations: locations,
+          locationTypes: locationsTypes,
           loadingState: LoadingState.loaded,
         );
       } else {
