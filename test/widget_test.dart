@@ -14,7 +14,7 @@ class FakeLocationsNotifier extends LocationsNotifier {
       loadingState: LoadingState.loading,
     );
 
-    Location fulda = Location(
+    final Location fulda = Location(
       id: "10020062",
       isGlobalId: true,
       name: "Fulda",
@@ -23,12 +23,14 @@ class FakeLocationsNotifier extends LocationsNotifier {
       matchQuality: 0,
       isBest: true,
     );
-    List<Location> list = [];
-    list.add(fulda);
+    final List<Location> list = [fulda];
+    List<String> locationsTypes = ['All'];
+
     state = state.copyWith(
-      locations: list,
-      loadingState: LoadingState.loaded,
-    );
+        locations: list,
+        loadingState: LoadingState.loaded,
+        locationTypes: locationsTypes,
+        filterByType: 'All');
   }
 }
 
