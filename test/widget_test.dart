@@ -17,6 +17,7 @@ void main() {
     await tester.enterText(find.byType(TextFormField), 'fd');
     // Tap the SearchIt button.
     await tester.tap(find.byType(OutlinedButton));
+    await tester.pump();
     //
     // To test a real HTTP call is not possible...
     //
