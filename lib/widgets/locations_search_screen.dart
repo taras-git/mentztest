@@ -15,10 +15,7 @@ class LocationsSearchScreen extends ConsumerWidget {
     final locations = ref.watch(locationsProvider).locations;
     final loadingState = ref.watch(locationsProvider).loadingState;
     final locationTypes = ref.watch(locationsProvider).locationTypes;
-    final filter = ref.watch(locationsProvider).filterByType;
-    final filteredLocations = filter == 'All'
-        ? locations
-        : locations.where((loc) => loc.type == filter).toList();
+    final filterByType = ref.watch(locationsProvider).filterByType;
 
     return Scaffold(
       body: SafeArea(
@@ -96,7 +93,13 @@ class LocationsSearchScreen extends ConsumerWidget {
             else if (loadingState == LoadingState.noConnection)
               const Text('There is something wrong with connection...')
             else
-              CardsList(locations: filteredLocations)
+              CardsList(
+                locations: ref.watch(locationsProvider).filterByType == 'All'
+                    ? locations
+                    : locations
+                        .where((loc) => loc.type == filterByType)
+                        .toList(),
+              )
           ],
         ),
       ),
