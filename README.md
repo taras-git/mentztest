@@ -4,13 +4,25 @@ A new Flutter project.
 
 ## Getting Started
 
-This project is a starting point for a Flutter application.
+This app displays results of a search. 
+To perform a search user should enter a text into Text Field and hit "SearchIt!" button.
+Optionally, the results can be filtered with a help of a drop-down button "Filter by type:"
 
-A few resources to get you started if this is your first Flutter project:
+The app uses Riverpod as a state management, which holds:
+ - the current state of loading (success, error etc); 
+ - result (locations) of the current search;
+ - type of the locations of the current search;
+ - current type of the locations (by default - All).
+ 
+ Also, as the data model the app uses Freezed package due to it simplicity and conveniece of using. Because of that, any changes to Provider should be followed with the command:
+  ```
+  flutter pub run build_runner build
+  ```
+  to re-generate the needed files.
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+ For the HTTP calls- http package. Dio was not concidered as it has a lot of flaws.
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+ For routing (although it is not needed, as the app has only 1 screen) - go_router package.
+
+ Also there are 2 test - 1 unit test for the Provider and 1 Widget test.
+
