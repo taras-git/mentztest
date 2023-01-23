@@ -7,21 +7,15 @@ class MentzApp extends ConsumerWidget {
   const MentzApp({Key? key}) : super(key: key);
 
   @override
-  Widget build(
-    BuildContext context,
-    WidgetRef ref,
-  ) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final theme = ThemeData();
 
     final router = GoRouter(
       routes: <GoRoute>[
         GoRoute(
-            path: '/',
-            builder: (
-              context,
-              state,
-            ) =>
-                LocationsSearchScreen()),
+          path: '/',
+          builder: (context, state) => LocationsSearchScreen(),
+        ),
       ],
     );
 
