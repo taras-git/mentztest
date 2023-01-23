@@ -4,6 +4,7 @@ import 'package:mentztest/widgets/locations_search_screen.dart';
 import 'package:mentztest/providers/locations_provider.dart';
 import 'package:mentztest/data_model/locations_data.dart';
 import 'package:mentztest/widgets/mentz_app.dart';
+import 'package:mentztest/widgets/card_entry.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:mockito/mockito.dart';
 
@@ -54,7 +55,9 @@ void main() {
     await tester.enterText(find.byType(TextFormField), 'fd');
     // Tap the SearchIt button.
     await tester.tap(find.byType(OutlinedButton));
-    await tester.pump();
-    expect(find.text('Fulda'), findsOneWidget);
+    await tester.pumpAndSettle();
+    expect(find.byType(Card), findsOneWidget);
+    const fulda = CardEntry(title: 'NAME', loc: 'Fulda');
+    expect(find.byWidget(fulda), findsOneWidget);
   });
 }
