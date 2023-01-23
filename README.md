@@ -10,7 +10,7 @@ Optionally, the results can be filtered with a help of a drop-down button "Filte
 
 The app uses Riverpod as a state management, which holds:
  - the current state of loading (success, error etc); 
- - result (locations) of the current search;
+ - result (locations, with Name, Type, Coordinates, and, if aplicable- Street and House No) of the current search;
  - type of the locations of the current search;
  - current type of the locations (by default - All).
  
