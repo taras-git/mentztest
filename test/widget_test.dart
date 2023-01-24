@@ -1,15 +1,53 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mentztest/widgets/locations_search_screen.dart';
+import 'package:mentztest/providers/locations_provider.dart';
+import 'package:mentztest/data_model/locations_data.dart';
 import 'package:mentztest/widgets/mentz_app.dart';
-import 'package:mentztest/main.dart';
+import 'package:mentztest/widgets/card_entry.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:go_router/go_router.dart';
+import 'package:mockito/mockito.dart';
+
+class FakeLocationsNotifier extends LocationsNotifier {
+  @override
+  Future<void> loadLocations(String searchText) async {
+    state = state.copyWith(
+      loadingState: LoadingState.loading,
+    );
+
+    final Location fulda = Location(
+      id: "10020062",
+      isGlobalId: true,
+      name: "Fulda",
+      coord: [5457328.0, 1078048.0],
+      type: "suburb",
+      matchQuality: 0,
+      isBest: true,
+    );
+    final List<Location> list = [fulda];
+    List<String> locationsTypes = ['All'];
+
+    state = state.copyWith(
+        locations: list,
+        loadingState: LoadingState.loaded,
+        locationTypes: locationsTypes,
+        filterByType: 'All');
+  }
+}
 
 void main() {
   testWidgets('LocationsSearchScreen has a title and text field',
       (WidgetTester tester) async {
-    await tester.pumpWidget(ProviderScope(child: MentzApp()));
+    await tester.pumpWidget(
+      ProviderScope(
+        overrides: [
+          locationsProvider.overrideWith(
+            (ref) => FakeLocationsNotifier(),
+          )
+        ],
+        child: MentzApp(),
+      ),
+    );
     final messageFinder = find.text('Locations locator');
     expect(messageFinder, findsOneWidget);
 
@@ -17,20 +55,9 @@ void main() {
     await tester.enterText(find.byType(TextFormField), 'fd');
     // Tap the SearchIt button.
     await tester.tap(find.byType(OutlinedButton));
-    await tester.pump();
-    //
-    // To test a real HTTP call is not possible...
-    //
-    // Warning: At least one test in this suite creates an HttpClient. When
-    // running a test suite that uses TestWidgetsFlutterBinding, all HTTP
-    // requests will return status code 400, and no network request will
-    // actually be made. Any test expecting a real network connection and
-    // status code will fail.
-    // To test code that needs an HttpClient, provide your own HttpClient
-    // implementation to the code under test, so that your test can
-    // consistently provide a testable response to the code under test.
-    //
-    // await tester.pump();
-    // expect(find.text('Fulda'), findsOneWidget);
+    await tester.pumpAndSettle();
+    expect(find.byType(Card), findsOneWidget);
+    const fulda = CardEntry(title: 'NAME', loc: 'Fulda');
+    expect(find.byWidget(fulda), findsOneWidget);
   });
 }
